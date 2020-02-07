@@ -1,7 +1,9 @@
 require 'csv' # frozen_string_literal: true
 FILE = 'btc.csv'
-return if ARGV.empty?
-return unless ARGV[0].to_i.is_a?(Numeric)
+if ARGV.empty? || !ARGV[0].to_i.is_a?(Numeric)
+  puts 'Please specify the number of days for which you want to calculate the SMA'
+  return
+end
 
 bitcoin_data = CSV.parse(File.read(FILE), headers: true, col_sep: ',')
 sma_days = ARGV[0].to_i
