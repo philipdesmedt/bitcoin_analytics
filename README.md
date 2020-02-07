@@ -27,4 +27,4 @@ Calculates a daily SMA based on your number input.
 
 The other scripts are experimental and don't have anything proven (yet).
 
-**Note: none of these scripts are financial advice. Use at your own risk. Never invest what you cannot afford to lose.**
+**Note: none of these scripts are financial advice. Use at your own risk. Never invest what you cannot afford to lose. I did not invent these metrics, I'm only playing around with publicly available data.**
