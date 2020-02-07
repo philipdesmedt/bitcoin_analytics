@@ -22,8 +22,12 @@ Calculates the 730 daily SMA and the 5 * 730 daily SMA (in price, not in # of da
 
 4. bitcoin_sma_input.rb
 
-Calculates a daily SMA based on your number input.
-
+Calculates a daily SMA based on your number input. Optional start_date and end_date. Examples:
+```
+	ruby bitcoin_sma_input.rb 1400
+	ruby bitcoin_sma_input.rb 1400 start_date= end_date=2020-01-03
+	ruby bitcoin_sma_input.rb 31 start_date=2020-01-01 end_date=2020-01-31
+```
 
 The other scripts are experimental and don't have anything proven (yet).
 
