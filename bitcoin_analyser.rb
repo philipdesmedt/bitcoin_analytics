@@ -23,6 +23,24 @@ class BitcoinAnalyser
     (total_price / bitcoin_data.length).round(2)
   end
 
+  def all_time_high_price(options = {})
+    bitcoin_data = begin
+      if options[:start_date] || options[:end_date]
+        select_data_range(options[:start_date], options[:end_date])
+      else
+        load_data
+      end
+    end
+
+    current_ath = 0
+    bitcoin_data.each do |entry|
+      price = entry['PriceUSD'].to_f
+      current_ath = price if price > current_ath
+    end
+
+    current_ath.round(2)
+  end
+
   private
 
     def load_data
