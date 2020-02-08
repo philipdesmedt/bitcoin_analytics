@@ -29,6 +29,13 @@ Calculates a daily SMA based on your number input. Optional start_date and end_d
 	ruby bitcoin_sma_input.rb 31 start_date=2020-01-01 end_date=2020-01-31
 ```
 
+Or use the `BitcoinAnalysis` class:
+
+```
+  require './bitcoin_analysis'
+  analyser = BitcoinAnalyser.new
+```
+
 The other scripts are experimental and don't have anything proven (yet).
 
 **Note: none of these scripts are financial advice. Use at your own risk. Never invest what you cannot afford to lose. I did not invent these metrics, I'm only playing around with publicly available data.**
