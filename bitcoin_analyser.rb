@@ -8,6 +8,35 @@ class BitcoinAnalyser
   end
 
   def calculate_moving_average(number_of_days, options = {})
+    total_price, length = average_by_field('PriceUSD', number_of_days, options)
+    (total_price / length).round(2)
+  end
+
+  def calculate_average_transactions(number_of_days, options = {})
+    total_transactions, length = average_by_field('TxCnt', number_of_days, options)
+    (total_transactions / length).round(0)
+  end
+
+  def calculate_average_fees_usd(number_of_days, options = {})
+    total_transactions, length = average_by_field('FeeTotUSD', number_of_days, options)
+    (total_transactions / length).round(2)
+  end
+
+  def mayer_multiple
+    ma = calculate_moving_average(200)
+    (price_today / ma).round(2)
+  end
+
+  def sma1458d_multiple
+    ma = calculate_moving_average(1458)
+    (price_today / ma).round(2)
+  end
+
+  def price_today
+    load_data[-1]['PriceUSD'].to_f
+  end
+
+  def average_by_field(field_name, number_of_days, options)
     bitcoin_data = begin
       if options[:start_date] || options[:end_date]
         select_data_range(options[:start_date], options[:end_date])
@@ -17,15 +46,11 @@ class BitcoinAnalyser
     end
     start_index = bitcoin_data.length - select_days(bitcoin_data, number_of_days, options)
     bitcoin_data = bitcoin_data[start_index..bitcoin_data.length]
-    total_price = 0
+    total = 0
 
-    bitcoin_data.each { |entry| total_price += entry['PriceUSD'].to_f }
-    (total_price / bitcoin_data.length).round(2)
-  end
+    bitcoin_data.each { |entry| total += entry[field_name].to_f }
 
-  def mayer_multiple
-    ma = calculate_moving_average(200)
-    (load_data[-1]['PriceUSD'].to_f / ma).round(2)
+    return total, bitcoin_data.length
   end
 
   def all_time_high_price(options = {})
@@ -44,6 +69,10 @@ class BitcoinAnalyser
     end
 
     current_ath.round(2)
+  end
+
+  def raw_data
+    load_data
   end
 
   private
