@@ -23,6 +23,11 @@ class BitcoinAnalyser
     (total_price / bitcoin_data.length).round(2)
   end
 
+  def mayer_multiple
+    ma = calculate_moving_average(200)
+    (load_data[-1]['PriceUSD'].to_f / ma).round(2)
+  end
+
   def all_time_high_price(options = {})
     bitcoin_data = begin
       if options[:start_date] || options[:end_date]
